@@ -1,4 +1,4 @@
-# Online multidimensional linear regression
-## Receptive field estimation of simulated simple cell
+
+# Bonsai online Bayesian multivariate linear regression package
 
 Under construction
