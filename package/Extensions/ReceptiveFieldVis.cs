@@ -16,9 +16,9 @@ using MathNet.Numerics.Random;
 using ScottPlot;
 using ScottPlot.Plottable;
 
-[assembly: TypeVisualizer(typeof(RFVis), Target=typeof(PosteriorCalculator))] 
+[assembly: TypeVisualizer(typeof(ReceptiveFieldVis), Target=typeof(PosteriorCalculator))] 
 
-public class RFVis : DialogTypeVisualizer
+public class ReceptiveFieldVis : DialogTypeVisualizer
 {
     private static ScottPlot.FormsPlot _formsPlot1;
     private static double[] _coefs;
