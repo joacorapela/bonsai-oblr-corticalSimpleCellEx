@@ -13,32 +13,26 @@ using MathNet.Numerics;
 using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics.Distributions;
 using MathNet.Numerics.Random;
+using MathNet.Numerics.Statistics;
 using ScottPlot;
 using ScottPlot.Plottable;
 
-[assembly: TypeVisualizer(typeof(PredictionsAndResponsesVis), Target=typeof(BufferPredictionsAndResponses))] 
+[assembly: TypeVisualizer(typeof(PredictionsVsResponsesVis), Target=typeof(PredictionsVsResponsesDummy))] 
 
-public class PredictionsAndResponsesVis : DialogTypeVisualizer
+public class PredictionsVsResponsesVis : DialogTypeVisualizer
 {
-    private static ScottPlot.FormsPlot _formsPlot1;
-    private static double[] _coefs;
-    private static double[] _observations;
-    private static double[] _predictions;
-    private static ScottPlot.Plottable.ScatterPlot _scatterPlot;
+    private ScottPlot.FormsPlot _formsPlot1;
+    private ScottPlot.Plottable.ScatterPlot _scatterPlot;
+    private double[] _axisLimits = new double[] { 0.0, 15.0, 0.0, 3.0 };
 
     public override void Load(IServiceProvider provider)
     {
-        _formsPlot1 = new ScottPlot.FormsPlot() { Dock = DockStyle.Fill };
-	_coefs = CSVReader.ReadCSVToVector(@"C:\Users\user1\bonsai\repos\rfEstimationSimulatedCell\package\Extensions\params\gabor10x10.csv");
-        int numPointsToSimDisplay = 20;
-        _observations = new double[numPointsToSimDisplay];
-        _predictions = new double[numPointsToSimDisplay];
-        _formsPlot1.Plot.AddScatter(new double[] { -4.0, 4.0 }, new double[] { -4.0, 4.0 }, lineWidth: 1, color: Color.Red);
-        _scatterPlot = _formsPlot1.Plot.AddScatter(_observations, _predictions, lineWidth: 0, color: Color.Blue);
-        _formsPlot1.Plot.XLabel("Observations");
-        _formsPlot1.Plot.YLabel("Predictions");
-        _formsPlot1.Plot.SetAxisLimits(-4.0, 4.0, -4.0, 4.0);
-        _formsPlot1.Refresh();
+        this._formsPlot1 = new ScottPlot.FormsPlot() { Dock = DockStyle.Fill };
+        this._scatterPlot = this._formsPlot1.Plot.AddScatter(new double[] { this._axisLimits[0], this._axisLimits[1] }, new double[] { this._axisLimits[2], this._axisLimits[3] }, lineWidth: 0, color: Color.Red);
+        this._formsPlot1.Plot.XLabel("Observations");
+        this._formsPlot1.Plot.YLabel("Predicted Means");
+        this._formsPlot1.Plot.SetAxisLimits(this._axisLimits[0], this._axisLimits[1], this._axisLimits[2], this._axisLimits[3]);
+        this._formsPlot1.Refresh();
 
         var visualizerService = (IDialogTypeVisualizerService)provider.GetService(typeof(IDialogTypeVisualizerService));
         if (visualizerService != null)
@@ -48,14 +42,25 @@ public class PredictionsAndResponsesVis : DialogTypeVisualizer
     }
 
     public override void Show(object value)
+    // value.Item1[i].Item1: mean of prediction i
+    // value.Item1[i].Item2: var of prediction i
+    // value.Item2: observations
     {
-        Tuple<double, double> pair = (Tuple<double, double>) value;
-        Array.Copy(_observations, 1, _observations, 0, _observations.Length - 1);
-        Array.Copy(_predictions, 1, _predictions, 0, _predictions.Length - 1);
-        _observations[_observations.Length-1] = pair.Item1;
-        _predictions[_observations.Length-1] = pair.Item2;
-        _scatterPlot.Update(_observations, _predictions);
-        _formsPlot1.Refresh();
+        var pair = (Tuple<IList<Tuple<double, double>>, IList<double>>) value;
+        double[] observations = new double[pair.Item2.Count()];
+        for (int i=0; i<observations.Length; i++)
+        {
+            observations[i] = pair.Item2[i];
+        }
+        double[] predicted_means = new double[pair.Item1.Count()];
+        for (int i=0; i<predicted_means.Length; i++)
+        {
+            predicted_means[i] = pair.Item1[i].Item1;
+        }
+        this._scatterPlot.Update(observations, predicted_means);
+        double corCoef = Correlation.Pearson(observations, predicted_means);
+        this._formsPlot1.Plot.Title(String.Format("Correlation Coefficient: {0:F2}", corCoef));
+        this._formsPlot1.Refresh();
     }
 
     public override void Unload()
