@@ -2,13 +2,13 @@
 using System;
 using System.IO;
 
-public class CSVReader
+public class Utils
 {
-    public static double[] ReadCSVToVector(string filename)
+    public static double[] ReadCSVTo1DArray(string filename, char sep=',')
     {
         // Read all lines from the CSV file
         string[] lines = File.ReadAllLines(filename);
-        string[] values_str = lines[0].Split(',');
+        string[] values_str = lines[0].Split(sep);
 
         // Determine the dimensions of the matrix
         int numElem = values_str.Length;
@@ -25,18 +25,17 @@ public class CSVReader
         return values_double;
     }
 
-    public static double[,] ReadCSVToMatrix(string filename)
+    public static double[,] ReadCSVTo2DArray(string filename, char sep=',')
     {
         string[] lines = File.ReadAllLines(filename);
-        string[] values_str = lines[0].Split(',');
+        string[] values_str = lines[0].Split(sep);
         int nRows = lines.Length;
-        var row0Elems = lines[0].Split(',');
-        int nCols = row0Elems.Length;
+        int nCols = values_str.Length;
         // Console.WriteLine($"nRows={nRows}, nCols={nCols}");
         double[,] answer = new double[nRows, nCols];
         for (int i = 0; i < nRows; i++)
         {
-            values_str = lines[i].Split(',');
+            values_str = lines[i].Split(sep);
             for (int j = 0; j < nCols; j++)
             {
             	answer[i, j] = Convert.ToDouble(values_str[j]);
@@ -44,5 +43,33 @@ public class CSVReader
         }
         return answer;
     }
+
+    public static double[] DelayResponses(int delay, double[] responses)
+    {
+        double[] dResponses = new double[responses.Length - delay];
+        for (int i=delay; i<responses.Length; i++)
+        {
+            dResponses[i-delay] = responses[i];
+        }
+        return dResponses;
+    }
+
+    public static double[,] DelayImages(int delay, double[,] images)
+    {
+        int rows = images.GetLength(0);
+        int cols = images.GetLength(1);
+
+        double[,] dImages = new double[rows-delay, cols];
+
+        for (int i = 0; i < rows-delay; i++)
+        {
+            for (int j = 0; j < cols; j++)
+            {
+                dImages[i, j] = images[i, j];
+            }
+        }
+        return dImages;
+    }
+
 }
 
