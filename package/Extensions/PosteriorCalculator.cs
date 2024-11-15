@@ -14,10 +14,6 @@ using System.Globalization;
 [WorkflowElementCategory(ElementCategory.Transform)]
 public class PosteriorCalculator
 {
-    public double priorPrecision { get; set; }
-
-    public double likePrecision { get; set; }
-
     [TypeConverter(typeof(UnidimensionalArrayConverter))]
     public double[] m0 { get; set; }
 
@@ -31,12 +27,17 @@ public class PosteriorCalculator
     public string KernelXml
     {
         get { return ArrayConvert.ToString(S0, CultureInfo.InvariantCulture); }
-	set { S0 = (double[,])ArrayConvert.ToArray(value, 2, typeof(double), CultureInfo.InvariantCulture); }
+        set { S0 = (double[,])ArrayConvert.ToArray(value, 2, typeof(double), CultureInfo.InvariantCulture); }
     }
+
+    public double priorPrecision { get; set; }
+
+    public double likePrecision { get; set; }
 
     public IObservable<PosteriorDataItem> Process(IObservable<RegressionObservation> source)
     {
         Console.WriteLine("PosteriorCalculator Process called");
+
         return source.Scan(
             new PosteriorDataItem
             {
@@ -46,15 +47,15 @@ public class PosteriorCalculator
             (prior, observation) =>
             {
                 ValueTuple<Vector<double>, Matrix<double>> tuple = BayesianLinearRegression.OnlineUpdate(prior.mn, prior.Sn, observation.phi, observation.t, priorPrecision, likePrecision);
-		        Vector<double> mn = tuple.Item1;
-		        Matrix<double> Sn = tuple.Item2;
-		        PosteriorDataItem pdi = new PosteriorDataItem
+                Vector<double> mn = tuple.Item1;
+                Matrix<double> Sn = tuple.Item2;
+                PosteriorDataItem pdi = new PosteriorDataItem
                 {
-		            mn=mn,
-		            Sn=Sn
+                    mn=mn,
+                    Sn=Sn
                 };
-		        pdi.mn = mn;
-		        pdi.Sn = Sn;
+                pdi.mn = mn;
+                pdi.Sn = Sn;
                 return pdi;
             }
         );
