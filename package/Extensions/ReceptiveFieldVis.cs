@@ -57,9 +57,17 @@ public class ReceptiveFieldVis : DialogTypeVisualizer
     {
         PosteriorDataItem pdi = (PosteriorDataItem) value;
 
+	double[] rf = new double[pdi.mn.Count - 1];
+        for(int i=1; i<pdi.mn.Count; i++)
+	{
+            rf[i-1] = pdi.mn[i];
+	}
+
         _formsPlot1.Plot.Clear();
-        var hm = _formsPlot1.Plot.AddHeatmap(this._toSquareMatrix(pdi.mn.ToArray()), lockScales: false);
+        var hm = _formsPlot1.Plot.AddHeatmap(this._toSquareMatrix(rf), lockScales: false);
         var cb = _formsPlot1.Plot.AddColorbar(hm);
+        _formsPlot1.Plot.XLabel("x");
+        _formsPlot1.Plot.YLabel("y");
         _formsPlot1.Refresh();
     }
 
