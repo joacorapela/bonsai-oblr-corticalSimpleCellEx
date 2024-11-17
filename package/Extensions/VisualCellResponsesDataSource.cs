@@ -20,7 +20,7 @@ public class VisualCellResponsesDataSource
     private string _responsesFilename;
 
     public int delay { get; set; }
-    private string imagesFilename { set { 
+    public string imagesFilename { set { 
 	                                 this._imagesFilename = value;
 	                                 var buffer = Utils.ReadCSVTo2DArray(value, ' ');
 	                                 var dBuffer = Utils.DelayImages(this.delay, buffer);
@@ -28,7 +28,7 @@ public class VisualCellResponsesDataSource
                                        }
     				   get { return _imagesFilename; }
                                  }
-    private string responsesFilename { set { 
+    public string responsesFilename { set { 
 	                                    this._responsesFilename = value;
 	                                    var buffer = Utils.ReadCSVTo1DArray(value, ' ');
 	                                    var dBuffer = Utils.DelayResponses(this.delay, buffer);
@@ -37,11 +37,11 @@ public class VisualCellResponsesDataSource
     				      get { return _responsesFilename; }
                                     }
 
-    public VisualCellResponsesDataSource()
-    {
-	    this.imagesFilename = @"C:\Users\user1\bonsai\repos\rfEstimationSimpleCell\package\Extensions\data\equalpower_C2_25hzPP.dat";
-	    this.responsesFilename = @"C:\Users\user1\bonsai\repos\rfEstimationSimpleCell\package\Extensions\data\nsSumSpikeRates.dat";
-    }
+    // public VisualCellResponsesDataSource()
+    // {
+    //    this.imagesFilename = @"C:\Users\user1\bonsai\repos\rfEstimationSimpleCell\package\Extensions\data\equalpower_C2_25hzPP.dat";
+    //    this.responsesFilename = @"C:\Users\user1\bonsai\repos\rfEstimationSimpleCell\package\Extensions\data\nsSumSpikeRates.dat";
+    // }
 
     public IObservable<RegressionObservation> Process(IObservable<long> timerO)
     {
