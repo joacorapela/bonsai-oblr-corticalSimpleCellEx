@@ -4,3 +4,5 @@ obj/
 bin/
 NuGet.Config
 .vs/
+
+package/Extensions/data/*.dat
