@@ -10,7 +10,7 @@ using System.Reactive.Linq;
 [WorkflowElementCategory(ElementCategory.Transform)]
 public class PredictionsVsResponsesDummy
 {
-    public IObservable<Tuple<IList<Tuple<double, double>>, IList<double>>> Process(IObservable<Tuple<IList<Tuple<double, double>>, IList<double>>> source)
+    public IObservable<Tuple<System.ValueTuple<double, double>, double>> Process(IObservable<Tuple<System.ValueTuple<double, double>, double>> source)
     {
         return source.Select(value => value);
     }
