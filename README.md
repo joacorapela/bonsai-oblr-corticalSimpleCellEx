@@ -34,7 +34,7 @@ To run the current demonstration:
     - [natural images](https://www.gatsby.ucl.ac.uk/~rapela/bonsai/onlineBayesianLinearRegression/data/equalpower_C2_25hzPP.dat),
     - [natural responses](https://www.gatsby.ucl.ac.uk/~rapela/bonsai/onlineBayesianLinearRegression/data/nsSumSpikeRates.dat),
     - [random images](https://www.gatsby.ucl.ac.uk/~rapela/bonsai/onlineBayesianLinearRegression/data/rsImagesC2PP.dat),
-    - [https://www.gatsby.ucl.ac.uk/~rapela/bonsai/onlineBayesianLinearRegression/data/rsSumSpikeRates.dat](random responses),
+    - [random responses](https://www.gatsby.ucl.ac.uk/~rapela/bonsai/onlineBayesianLinearRegression/data/rsSumSpikeRates.dat),
 
     and save them to the directory `bonsai-onlineBayesianMultivariateLinearRegression\Extensions\data`
 
