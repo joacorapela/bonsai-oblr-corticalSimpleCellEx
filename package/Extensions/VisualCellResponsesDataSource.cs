@@ -20,21 +20,27 @@ public class VisualCellResponsesDataSource
     private string _responsesFilename;
 
     public int delay { get; set; }
+
+    [Description("The name of the images file.")]
+    [Editor("Bonsai.Design.OpenFileNameEditor, Bonsai.Design", DesignTypes.UITypeEditor)]
     public string imagesFilename { set { 
 	                                 this._imagesFilename = value;
 	                                 var buffer = Utils.ReadCSVTo2DArray(value, ' ');
 	                                 var dBuffer = Utils.DelayImages(this.delay, buffer);
 	                                 this._images = Matrix<double>.Build.DenseOfArray(dBuffer);
                                        }
-    				   get { return _imagesFilename; }
+                                  get { return _imagesFilename; }
                                  }
+
+    [Description("The name of the responses file.")]
+    [Editor("Bonsai.Design.OpenFileNameEditor, Bonsai.Design", DesignTypes.UITypeEditor)]
     public string responsesFilename { set { 
 	                                    this._responsesFilename = value;
 	                                    var buffer = Utils.ReadCSVTo1DArray(value, ' ');
 	                                    var dBuffer = Utils.DelayResponses(this.delay, buffer);
-				            this._responses = Vector<double>.Build.DenseOfArray(dBuffer);
-                                          }
-    				      get { return _responsesFilename; }
+                                        this._responses = Vector<double>.Build.DenseOfArray(dBuffer);
+                                      }
+                                      get { return _responsesFilename; }
                                     }
 
     // public VisualCellResponsesDataSource()
