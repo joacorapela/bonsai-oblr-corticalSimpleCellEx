@@ -14,6 +14,7 @@ using MathNet.Numerics.Distributions;
 using MathNet.Numerics.Random;
 using ScottPlot;
 using ScottPlot.Plottable;
+using OnlineBayesianLinearRegression;
 
 [assembly: TypeVisualizer(typeof(CoefficientsVis), Target=typeof(PosteriorCalculator))] 
 
