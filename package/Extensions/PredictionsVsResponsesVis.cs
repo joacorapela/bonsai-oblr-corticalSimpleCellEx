@@ -17,7 +17,7 @@ using MathNet.Numerics.Statistics;
 using ScottPlot;
 using ScottPlot.Plottable;
 
-[assembly: TypeVisualizer(typeof(PredictionsVsResponsesVis), Target=typeof(PredictionsVsResponsesDummy))] 
+[assembly: TypeVisualizer(typeof(PredictionsVsResponsesVis), Target=typeof(Tuple<System.ValueTuple<double, double>, double>))] 
 
 public class PredictionsVsResponsesVis : DialogTypeVisualizer
 {
