@@ -18,8 +18,8 @@
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="p1:VisualCellResponsesDataSource">
           <p1:delay>1</p1:delay>
-          <p1:imagesFilename>Extensions\data\equalpower_C2_25hzPP.dat</p1:imagesFilename>
-          <p1:responsesFilename>Extensions\data\nsSumSpikeRates.dat</p1:responsesFilename>
+          <p1:imagesFilename></p1:imagesFilename>
+          <p1:responsesFilename></p1:responsesFilename>
         </Combinator>
       </Expression>
       <Expression xsi:type="rx:Condition">
