@@ -129,17 +129,17 @@
   <DialogSettings xsi:type="WorkflowEditorSettings">
     <Visible>true</Visible>
     <Location>
-      <X>502</X>
-      <Y>375</Y>
+      <X>899</X>
+      <Y>383</Y>
     </Location>
     <Size>
       <Width>416</Width>
       <Height>339</Height>
     </Size>
     <WindowState>Normal</WindowState>
-    <VisualizerTypeName>CoefficientsVis</VisualizerTypeName>
+    <VisualizerTypeName>ReceptiveFieldVis</VisualizerTypeName>
     <VisualizerSettings>
-      <CoefficientsVis />
+      <ReceptiveFieldVis />
     </VisualizerSettings>
     <EditorDialogSettings>
       <Visible>false</Visible>
