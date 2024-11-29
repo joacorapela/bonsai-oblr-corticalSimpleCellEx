@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
 using MathNet.Numerics.LinearAlgebra;
+using JoacoRapela.Bonsai.ML.OnlineBayesianLinearRegression;
 
 [Combinator]
 [Description("")]
