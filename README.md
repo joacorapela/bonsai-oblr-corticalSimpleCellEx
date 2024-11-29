@@ -5,7 +5,7 @@ The following workflow demonstrates the use of **online Bayesian linear
 regression** to estimate the receptive field of a visual simple cell recorded
 from the primary visual cortex of an anesthetized cat.
 
-![oblr workflow](figures/oblr.png)
+![workflow](figures/workflow.png)
 
 ## Experimental procedure
 
@@ -25,18 +25,21 @@ stimulated with naturla stimuli.
 
 ## Installation instructions
 
-To run the current demonstration:
+To run this demo:
 
-1. `git clone https://github.com/joacorapela/bonsai-onlineBayesianMultivariateLinearRegression.git`
-
-2. download the files
+1. clone this repository
+2. execute `bonsai-oblr-corticalSimpleCellEx/.bonsai/Setup.cmd`
+3. run `bonsai-oblr-corticalSimpleCellEx.bonsai/Bonsai.exe`
+4. in Bonsai open the workflow `bonsai-oblr-corticalSimpleCellEx/package/rfEstimationSimpleCell.bonsai`
+5. download the files
 
     - [natural images](https://www.gatsby.ucl.ac.uk/~rapela/bonsai/onlineBayesianLinearRegression/data/equalpower_C2_25hzPP.dat),
     - [natural responses](https://www.gatsby.ucl.ac.uk/~rapela/bonsai/onlineBayesianLinearRegression/data/nsSumSpikeRates.dat),
     - [random images](https://www.gatsby.ucl.ac.uk/~rapela/bonsai/onlineBayesianLinearRegression/data/rsImagesC2PP.dat),
     - [random responses](https://www.gatsby.ucl.ac.uk/~rapela/bonsai/onlineBayesianLinearRegression/data/rsSumSpikeRates.dat).
 
-3. set the properties `imagesFilename` and `responsesFilename` of  the node
+6. set the properties `imagesFilename` and `responsesFilename` of  the node
    `Visual Cell Responses Data Source` to point to the natural images and
    natural responses filenames (or random images and random responses)
    dowloaded above.
+7. press the `Start` button in Bonsai
