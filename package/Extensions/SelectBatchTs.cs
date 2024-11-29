@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
+using JoacoRapela.Bonsai.ML.OnlineBayesianLinearRegression;
 
 [Combinator]
 [Description("")]
