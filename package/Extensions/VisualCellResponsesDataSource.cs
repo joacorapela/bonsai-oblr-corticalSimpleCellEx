@@ -8,6 +8,7 @@ using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics.Random;
 using MathNet.Numerics.Distributions;
 using System.Xml.Serialization;
+using JoacoRapela.Bonsai.ML.OnlineBayesianLinearRegression;
 
 [Combinator]
 [Description("")]
@@ -16,42 +17,29 @@ public class VisualCellResponsesDataSource
 {
     private Matrix<double> _images;
     private Vector<double> _responses;
-    private string _imagesFilename;
-    private string _responsesFilename;
 
     public int delay { get; set; }
 
     [Description("The name of the images file.")]
     [Editor("Bonsai.Design.OpenFileNameEditor, Bonsai.Design", DesignTypes.UITypeEditor)]
-    public string imagesFilename { set { 
-	                                 this._imagesFilename = value;
-	                                 var buffer = Utils.ReadCSVTo2DArray(value, ' ');
-	                                 var dBuffer = Utils.DelayImages(this.delay, buffer);
-	                                 this._images = Matrix<double>.Build.DenseOfArray(dBuffer);
-                                       }
-                                  get { return _imagesFilename; }
-                                 }
+    public string imagesFilename { set; get; }
 
     [Description("The name of the responses file.")]
     [Editor("Bonsai.Design.OpenFileNameEditor, Bonsai.Design", DesignTypes.UITypeEditor)]
-    public string responsesFilename { set { 
-	                                    this._responsesFilename = value;
-	                                    var buffer = Utils.ReadCSVTo1DArray(value, ' ');
-	                                    var dBuffer = Utils.DelayResponses(this.delay, buffer);
-                                        this._responses = Vector<double>.Build.DenseOfArray(dBuffer);
-                                      }
-                                      get { return _responsesFilename; }
-                                    }
-
-    // public VisualCellResponsesDataSource()
-    // {
-    //    this.imagesFilename = @"C:\Users\user1\bonsai\repos\rfEstimationSimpleCell\package\Extensions\data\equalpower_C2_25hzPP.dat";
-    //    this.responsesFilename = @"C:\Users\user1\bonsai\repos\rfEstimationSimpleCell\package\Extensions\data\nsSumSpikeRates.dat";
-    // }
+    public string responsesFilename { set; get; }
 
     public IObservable<RegressionObservation> Process(IObservable<long> timerO)
     {
         Console.WriteLine("VisualCellResponsesDataSource::Process called");
+
+	var iBuffer = Utils.ReadCSVTo2DArray(this.imagesFilename, ' ');
+	var dIBuffer = Utils.DelayImages(this.delay, iBuffer);
+	this._images = Matrix<double>.Build.DenseOfArray(dIBuffer);
+
+	var rBuffer = Utils.ReadCSVTo1DArray(this.responsesFilename, ' ');
+	var dRBuffer = Utils.DelayResponses(this.delay, rBuffer);
+        this._responses = Vector<double>.Build.DenseOfArray(dRBuffer);
+
         System.Random rng = SystemRandomSource.Default;
         int n = 0;
         int maxIndex = Math.Min(this._images.RowCount, this._responses.Count); // Set max bounds
