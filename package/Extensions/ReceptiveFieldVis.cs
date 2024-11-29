@@ -15,9 +15,9 @@ using MathNet.Numerics.Distributions;
 using MathNet.Numerics.Random;
 using ScottPlot;
 using ScottPlot.Plottable;
-using OnlineBayesianLinearRegression;
+using JoacoRapela.Bonsai.ML.OnlineBayesianLinearRegression;
 
-[assembly: TypeVisualizer(typeof(ReceptiveFieldVis), Target=typeof(PosteriorCalculator))] 
+[assembly: TypeVisualizer(typeof(ReceptiveFieldVis), Target=typeof(PosteriorDataItem))] 
 
 public class ReceptiveFieldVis : DialogTypeVisualizer
 {
