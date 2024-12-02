@@ -31,15 +31,17 @@ To run this demo:
 2. execute `bonsai-oblr-corticalSimpleCellEx/.bonsai/Setup.cmd`
 3. run `bonsai-oblr-corticalSimpleCellEx.bonsai/Bonsai.exe`
 4. in Bonsai open the workflow `bonsai-oblr-corticalSimpleCellEx/package/rfEstimationSimpleCell.bonsai`
-5. download the files
-
-    - [natural images](https://www.gatsby.ucl.ac.uk/~rapela/bonsai/onlineBayesianLinearRegression/data/equalpower_C2_25hzPP.dat),
-    - [natural responses](https://www.gatsby.ucl.ac.uk/~rapela/bonsai/onlineBayesianLinearRegression/data/nsSumSpikeRates.dat),
-    - [random images](https://www.gatsby.ucl.ac.uk/~rapela/bonsai/onlineBayesianLinearRegression/data/rsImagesC2PP.dat),
-    - [random responses](https://www.gatsby.ucl.ac.uk/~rapela/bonsai/onlineBayesianLinearRegression/data/rsSumSpikeRates.dat).
-
+5. download un unzip the [data file](https://www.gatsby.ucl.ac.uk/~rapela/bonsai/onlineBayesianLinearRegression/data/simpleCellData.zip)
 6. set the properties `imagesFilename` and `responsesFilename` of  the node
-   `Visual Cell Responses Data Source` to point to the natural images and
-   natural responses filenames (or random images and random responses)
+   `Visual Cell Responses Data Source` to point to `naturalImages.dat` and
+   `naturalSpikesRates.dat` (or `randomImages.dat` and `randomSpikesRates.dat`)
    dowloaded above.
 7. press the `Start` button in Bonsai
+
+## Relevant source code
+
+- [VisualCellResponsesDataSource](package/Extension/VisualCellResponsesDataSource.cs)
+
+- [PosteriorCalculator](https://github.com/joacorapela/bonsai-Bonsai.ML-OnlineBayesianLinearRegression/blob/master/code/src/PosteriorCalculator.cs)
+- [BayesianLinearRegression.OnlineUpdate](https://github.com/joacorapela/bayesianLinearRegressionCSharp/blob/master/code/src/bayesianLinearRegression/BayesianLinearRegression.cs#L6)
+
